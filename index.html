@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maple Paints — Premium Quality Paints Since 1995</title>
+    <title>Maple Paints — Premium Quality Paints Since 1975</title>
     <meta name="description"
         content="Maple Paints — Transforming spaces with premium quality paints. Explore 500+ shades for interior, exterior, and industrial applications.">
     <link
@@ -442,6 +442,53 @@
 
             to {
                 transform: translateX(-50%)
+            }
+        }
+
+        /* ── IMAGE MARQUEE ── */
+        .img-marquee-wrap {
+            padding: 0;
+            overflow: hidden;
+            display: contents;
+            background: var(--dark);
+        }
+
+        .img-marquee-track {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            animation: imgMarquee 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .img-marquee-item {
+            flex-shrink: 0;
+            width: 300px;
+            height: 400px;
+            border-radius: var(--r);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .img-marquee-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .img-marquee-item:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes imgMarquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
             }
         }
 
@@ -1807,7 +1854,7 @@
         <img class="hero-img" src="images/hero_bg.png" alt="Luxury interior painted beautifully by Maple Paints">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="hero-tag"><i class="fas fa-star" style="font-size:.65rem"></i> Premium Quality Since 1995</div>
+            <div class="hero-tag"><i class="fas fa-star" style="font-size:.65rem"></i> Premium Quality Since 1975</div>
             <h1>Color Your World<br>with <em>Maple Paints</em></h1>
             <p>India's most trusted premium paint brand — 500+ curated shades engineered for beauty, durability, and
                 sustainability.</p>
@@ -1818,7 +1865,7 @@
         </div>
         <div class="hero-stats">
             <div class="hero-stat">
-                <h3><span class="counter" data-t="28">0</span>+</h3>
+                <h3><span class="counter" data-t="50">0</span>+</h3>
                 <p>Years Experience</p>
             </div>
             <div class="hero-stat">
@@ -1862,23 +1909,21 @@
             <div class="about-img-wrap reveal-left">
                 <img src="images/about_visual.png" alt="Premium paint products and color swatches arranged on marble">
                 <div class="about-badge">
-                    <h4>30+</h4>
+                    <h4>50+</h4>
                     <p>Years of Trust</p>
                 </div>
             </div>
             <div class="reveal-right">
                 <div class="section-label">Our Story</div>
-                <h2 class="section-title">Crafting Premium Colors<br>Since 1995</h2>
+                <h2 class="section-title">Crafting Premium Colors<br>Since 1975</h2>
                 <p class="section-sub">Maple Paints has been transforming Indian homes and commercial spaces for over
-                    three decades. Our commitment to innovation, eco-conscious formulations, and stunning color is
+                    five decades. Our commitment to innovation, eco-conscious formulations, and stunning color is
                     unmatched in the industry.</p>
                 <div class="about-feats" style="margin-top:28px">
                     <div class="feat"><i class="fas fa-leaf"></i><span>Eco-Friendly & Low VOC</span></div>
                     <div class="feat"><i class="fas fa-shield-alt"></i><span>Weather Resistant</span></div>
                     <div class="feat"><i class="fas fa-paint-roller"></i><span>Premium Smooth Finish</span></div>
-                    <div class="feat"><i class="fas fa-award"></i><span>ISO 9001 Certified</span></div>
                     <div class="feat"><i class="fas fa-palette"></i><span>500+ Color Shades</span></div>
-                    <div class="feat"><i class="fas fa-recycle"></i><span>BIS Approved</span></div>
                 </div>
                 <a href="#contact" class="btn btn-red" style="margin-top:16px"><i class="fas fa-arrow-right"></i> Get a
                     Free Consultation</a>
@@ -2017,6 +2062,40 @@
         </div>
     </section>
 
+    <!-- ARTISTIC INSPIRATIONS -->
+    <section class="section" style="padding-bottom: 0;">
+        <div style="text-align:center;margin-bottom:40px" class="reveal">
+            <div class="section-label">Artistic Inspirations</div>
+            <h2 class="section-title">Colors That Tell A Story</h2>
+        </div>
+        <div class="img-marquee-wrap">
+            <div class="img-marquee-track">
+                <!-- Original set -->
+                <div class="img-marquee-item"><img src="images/indian_dancer_painting_1773737969881.png"
+                        alt="Indian Dancer"></div>
+                <div class="img-marquee-item"><img src="images/traditional_indian_dance_1773737989513.png"
+                        alt="Traditional Dance"></div>
+                <div class="img-marquee-item"><img src="images/santorini_landscape_painting_1773738004383.png"
+                        alt="Santorini"></div>
+                <div class="img-marquee-item"><img src="images/deer_nature_painting_1773738022597.png"
+                        alt="Deer Nature"></div>
+                <div class="img-marquee-item"><img src="images/pastel_maple_leaf_1773738039410.png" alt="Maple Leaf">
+                </div>
+                <!-- Duplicate set for seamless loop -->
+                <div class="img-marquee-item"><img src="images/indian_dancer_painting_1773737969881.png"
+                        alt="Indian Dancer"></div>
+                <div class="img-marquee-item"><img src="images/traditional_indian_dance_1773737989513.png"
+                        alt="Traditional Dance"></div>
+                <div class="img-marquee-item"><img src="images/santorini_landscape_painting_1773738004383.png"
+                        alt="Santorini"></div>
+                <div class="img-marquee-item"><img src="images/deer_nature_painting_1773738022597.png"
+                        alt="Deer Nature"></div>
+                <div class="img-marquee-item"><img src="images/pastel_maple_leaf_1773738039410.png" alt="Maple Leaf">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- COLORS -->
     <section class="section colors-section" id="colors">
         <div class="colors-grid">
@@ -2114,7 +2193,7 @@
         <div class="section-label" style="display:block;margin-bottom:14px;color:var(--gold-l)" class="reveal">Limited
             Offer</div>
         <h2 class="reveal">Ready to Transform Your Space?</h2>
-        <p class="reveal">Get a free color consultation and site visit. Our experts will help you choose the perfect
+        <p class="reveal">Get a color consultation and site visit. Our experts will help you choose the perfect
             palette.</p>
         <div class="cta-btns reveal">
             <a href="#contact" class="btn btn-gold"><i class="fas fa-phone"></i> Call Us Today</a>
@@ -2210,12 +2289,10 @@
         <div class="footer-grid">
             <div class="fc">
                 <div class="fc-logo">Maple<em>Paints</em></div>
-                <p>Transforming spaces with premium quality paints since 1995. Committed to innovation, sustainability,
+                <p>Transforming spaces with premium quality paints since 1975. Committed to innovation, sustainability,
                     and your total satisfaction.</p>
                 <div class="fc-badges">
-                    <span class="badge"><i class="fas fa-certificate"></i> ISO 9001</span>
                     <span class="badge"><i class="fas fa-leaf"></i> Green Cert</span>
-                    <span class="badge"><i class="fas fa-shield-alt"></i> BIS Approved</span>
                 </div>
             </div>
             <div class="fc">
