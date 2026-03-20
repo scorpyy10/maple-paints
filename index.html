@@ -242,7 +242,8 @@
             object-fit: cover;
             object-position: center;
             transform: scale(1.08);
-            animation: zoomOut 8s ease-out forwards
+            animation: zoomOut 8s ease-out forwards;
+            will-change: transform
         }
 
         @keyframes zoomOut {
@@ -445,20 +446,69 @@
             }
         }
 
+        /* ── INSPIRE SECTION ── */
+        .inspire-section {
+            background: var(--off);
+            padding-bottom: 0;
+            overflow: hidden;
+        }
+
+        .inspire-hint {
+            text-align: center;
+            font-size: .72rem;
+            color: var(--stone-d);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-top: 36px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
         /* ── IMAGE MARQUEE ── */
         .img-marquee-wrap {
-            padding: 0;
+            position: relative;
+            padding: 48px 0;
             overflow: hidden;
-            display: contents;
+            display: block;
             background: var(--dark);
+            /* Top & bottom edges blend into the surrounding light section */
+            box-shadow: inset 0 24px 40px -10px var(--off), inset 0 -24px 40px -10px var(--off);
+        }
+
+        /* Left & right vignette — fade into dark bg */
+        .img-marquee-wrap::before,
+        .img-marquee-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 180px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .img-marquee-wrap::before {
+            left: 0;
+            background: linear-gradient(to right, var(--dark) 0%, transparent 100%);
+        }
+
+        .img-marquee-wrap::after {
+            right: 0;
+            background: linear-gradient(to left, var(--dark) 0%, transparent 100%);
         }
 
         .img-marquee-track {
             display: flex;
             gap: 20px;
-            padding: 20px 0;
-            animation: imgMarquee 30s linear infinite;
-            white-space: nowrap;
+            animation: imgMarquee 35s linear infinite;
+            width: max-content;
+        }
+
+        .img-marquee-wrap:hover .img-marquee-track {
+            animation-play-state: paused;
         }
 
         .img-marquee-item {
@@ -467,7 +517,9 @@
             height: 400px;
             border-radius: var(--r);
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            position: relative;
+            cursor: pointer;
         }
 
         .img-marquee-item img {
@@ -475,11 +527,43 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: transform 0.6s ease;
         }
 
         .img-marquee-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.07);
+        }
+
+        .img-marquee-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 48px 20px 20px;
+            background: linear-gradient(to top, rgba(45, 41, 38, .95) 0%, transparent 100%);
+            font-family: var(--font-s);
+            font-size: 1rem;
+            color: var(--gold-l);
+            letter-spacing: .04em;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        .img-marquee-caption span {
+            display: block;
+            font-family: var(--font-b);
+            font-size: .72rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, .45);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .img-marquee-item:hover .img-marquee-caption {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @keyframes imgMarquee {
@@ -489,6 +573,47 @@
 
             to {
                 transform: translateX(-50%);
+            }
+        }
+
+        .marquee-wrap:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @media(max-width:768px) {
+            .img-marquee-item {
+                width: 240px;
+                height: 320px;
+            }
+
+            .img-marquee-wrap::before,
+            .img-marquee-wrap::after {
+                width: 80px;
+            }
+
+            .inspire-hint {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .marquee-track,
+            .img-marquee-track {
+                animation: none;
+            }
+
+            .hero-img {
+                animation: none;
+                transform: scale(1) !important;
+            }
+
+            .reveal,
+            .reveal-left,
+            .reveal-right {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
             }
         }
 
@@ -1846,7 +1971,9 @@
             <li><a href="#testimonials">Reviews</a></li>
             <li><a href="#contact" class="nav-cta">Get Quote</a></li>
         </ul>
-        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        <div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </div>
     </nav>
 
     <!-- HERO -->
@@ -1907,7 +2034,8 @@
     <section class="section" id="about">
         <div class="about-grid">
             <div class="about-img-wrap reveal-left">
-                <img src="images/about_visual.png" alt="Premium paint products and color swatches arranged on marble">
+                <img src="images/about_maple_branded.png"
+                    alt="Premium paint products and color swatches arranged on marble">
                 <div class="about-badge">
                     <h4>50+</h4>
                     <p>Years of Trust</p>
@@ -2063,34 +2191,50 @@
     </section>
 
     <!-- ARTISTIC INSPIRATIONS -->
-    <section class="section" style="padding-bottom: 0;">
-        <div style="text-align:center;margin-bottom:40px" class="reveal">
+    <section class="section inspire-section">
+        <div style="text-align:center" class="reveal">
             <div class="section-label">Artistic Inspirations</div>
             <h2 class="section-title">Colors That Tell A Story</h2>
+            <p class="section-sub" style="max-width:480px">Paintings and art that inspire our curated collections — each
+                shade born from a moment of beauty.</p>
         </div>
+        <p class="inspire-hint reveal"><i class="fas fa-pause" style="font-size:.6rem"></i> Hover to pause &amp; explore
+        </p>
         <div class="img-marquee-wrap">
             <div class="img-marquee-track">
                 <!-- Original set -->
-                <div class="img-marquee-item"><img src="images/indian_dancer_painting_1773737969881.png"
-                        alt="Indian Dancer"></div>
-                <div class="img-marquee-item"><img src="images/traditional_indian_dance_1773737989513.png"
-                        alt="Traditional Dance"></div>
-                <div class="img-marquee-item"><img src="images/santorini_landscape_painting_1773738004383.png"
-                        alt="Santorini"></div>
-                <div class="img-marquee-item"><img src="images/deer_nature_painting_1773738022597.png"
-                        alt="Deer Nature"></div>
-                <div class="img-marquee-item"><img src="images/pastel_maple_leaf_1773738039410.png" alt="Maple Leaf">
+                <div class="img-marquee-item">
+                    <img src="images/indian_dancer_painting_1773737969881.png" alt="Indian Dancer" loading="lazy">
+                    <div class="img-marquee-caption">Indian Dancer<span>Folk Art · Color Inspiration</span></div>
+                </div>
+                <div class="img-marquee-item">
+                    <img src="images/traditional_indian_dance_1773737989513.png" alt="Traditional Dance" loading="lazy">
+                    <div class="img-marquee-caption">Traditional Dance<span>Cultural Art · Vibrant Palette</span></div>
+                </div>
+                <div class="img-marquee-item">
+                    <img src="images/santorini_landscape_painting_1773738004383.png" alt="Santorini" loading="lazy">
+                    <div class="img-marquee-caption">Santorini<span>Landscape · Mediterranean Tones</span></div>
+                </div>
+                <div class="img-marquee-item">
+                    <img src="images/deer_nature_painting_1773738022597.png" alt="Deer Nature" loading="lazy">
+                    <div class="img-marquee-caption">Deer in Nature<span>Wildlife Art · Earth Tones</span></div>
                 </div>
                 <!-- Duplicate set for seamless loop -->
-                <div class="img-marquee-item"><img src="images/indian_dancer_painting_1773737969881.png"
-                        alt="Indian Dancer"></div>
-                <div class="img-marquee-item"><img src="images/traditional_indian_dance_1773737989513.png"
-                        alt="Traditional Dance"></div>
-                <div class="img-marquee-item"><img src="images/santorini_landscape_painting_1773738004383.png"
-                        alt="Santorini"></div>
-                <div class="img-marquee-item"><img src="images/deer_nature_painting_1773738022597.png"
-                        alt="Deer Nature"></div>
-                <div class="img-marquee-item"><img src="images/pastel_maple_leaf_1773738039410.png" alt="Maple Leaf">
+                <div class="img-marquee-item">
+                    <img src="images/indian_dancer_painting_1773737969881.png" alt="Indian Dancer" loading="lazy">
+                    <div class="img-marquee-caption">Indian Dancer<span>Folk Art · Color Inspiration</span></div>
+                </div>
+                <div class="img-marquee-item">
+                    <img src="images/traditional_indian_dance_1773737989513.png" alt="Traditional Dance" loading="lazy">
+                    <div class="img-marquee-caption">Traditional Dance<span>Cultural Art · Vibrant Palette</span></div>
+                </div>
+                <div class="img-marquee-item">
+                    <img src="images/santorini_landscape_painting_1773738004383.png" alt="Santorini" loading="lazy">
+                    <div class="img-marquee-caption">Santorini<span>Landscape · Mediterranean Tones</span></div>
+                </div>
+                <div class="img-marquee-item">
+                    <img src="images/deer_nature_painting_1773738022597.png" alt="Deer Nature" loading="lazy">
+                    <div class="img-marquee-caption">Deer in Nature<span>Wildlife Art · Earth Tones</span></div>
                 </div>
             </div>
         </div>
@@ -2215,21 +2359,22 @@
                     <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
                         <h4>Visit Us</h4>
-                        <p>42 Industrial Area, Phase II<br>New Delhi, India — 110020</p>
+                        <p>105, 105 - A Sadaram Estate,<br>Padmanabh Mandir Road,<br>Nr. Gheta farm
+                            Ramnagar,<br>PATAN-384265</p>
                     </div>
                 </div>
                 <div class="ci-item">
                     <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
                     <div>
                         <h4>Call Us</h4>
-                        <p>+91 11 2345 6789<br>+91 98765 43210</p>
+                        <p>we will update soon</p>
                     </div>
                 </div>
                 <div class="ci-item">
                     <div class="ci-icon"><i class="fas fa-envelope"></i></div>
                     <div>
                         <h4>Email Us</h4>
-                        <p>info@maplepaints.com<br>support@maplepaints.com</p>
+                        <p>customercare@maplepaints.com</p>
                     </div>
                 </div>
                 <div class="ci-item">
@@ -2338,11 +2483,13 @@
             setTimeout(() => document.getElementById('preloader').classList.add('hide'), 1500);
         });
 
-        // Navbar scroll
+        // Navbar scroll + back-to-top (single listener)
+        const navbar = document.getElementById('navbar');
+        const btt = document.getElementById('btt');
         window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
-            document.getElementById('btt').classList.toggle('show', scrollY > 500);
-        });
+            navbar.classList.toggle('scrolled', scrollY > 60);
+            btt.classList.toggle('show', scrollY > 500);
+        }, { passive: true });
 
         // Hamburger menu
         const hamburger = document.getElementById('hamburger');
@@ -2462,11 +2609,15 @@
             chip.addEventListener('mouseleave', () => { chip.style.boxShadow = ''; });
         });
 
-        // Parallax hero image subtle scroll
-        window.addEventListener('scroll', () => {
-            const img = document.querySelector('.hero-img');
-            if (img && scrollY < window.innerHeight) { img.style.transform = `scale(1) translateY(${scrollY * 0.2}px)`; }
-        });
+        // Parallax hero image subtle scroll (merged into single passive listener above would conflict with animation reset — kept separate but passive)
+        const heroImg = document.querySelector('.hero-img');
+        if (heroImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            window.addEventListener('scroll', () => {
+                if (scrollY < window.innerHeight) {
+                    heroImg.style.transform = `scale(1) translateY(${scrollY * 0.2}px)`;
+                }
+            }, { passive: true });
+        }
     </script>
 </body>
 
