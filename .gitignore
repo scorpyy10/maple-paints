@@ -1,1 +1,15 @@
 .DS_Store
+
+# Sensitive documents
+Gst certificate - Maple paints.pdf
+PAN CARD.JPG
+
+# Screenshots
+Screenshot*.png
+
+# Scripts and generated output
+generate.py
+output/
+
+# Misc assets
+maple-leaf-4wi0qqcnq63xr1dnrx7vwj.webp
