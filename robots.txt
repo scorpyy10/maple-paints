@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.maplepaints.in/sitemap.xml
+
+# Block any CMS admin pages if added in future
+Disallow: /admin/
+Disallow: /wp-admin/
